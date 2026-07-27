@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4a2345" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>ถึงคนที่น่ารักที่สุด</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Itim&family=Noto+Sans+Thai:wght@300;400;600;700&display=swap');
+
+    :root {
+      --pink: #ff7ca8;
+      --rose: #ff4f87;
+      --cream: #fff8f5;
+      --ink: #4d3540;
+      --glass: rgba(255,255,255,.16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: white;
+      font-family: "Noto Sans Thai", sans-serif;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,151,189,.30), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(183,116,255,.22), transparent 26%),
+        linear-gradient(135deg, #271a35 0%, #4a2345 48%, #7f314f 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(25,10,30,.15), rgba(20,5,25,.50));
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .stars, .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      opacity: .75;
+      animation: twinkle 2.4s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: .2; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1.3); }
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -30px;
+      opacity: .7;
+      animation: floatUp linear forwards;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-115vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-card {
+      width: min(760px, 100%);
+      padding: 54px 30px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 32px;
+      text-align: center;
+      background: rgba(255,255,255,.10);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 30px 80px rgba(0,0,0,.28);
+    }
+
+    .mini {
+      font-size: .88rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .75;
+    }
+
+    h1 {
+      font-family: "Itim", cursive;
+      font-size: clamp(2.5rem, 8vw, 5.8rem);
+      line-height: 1;
+      margin: 18px 0;
+      text-shadow: 0 8px 30px rgba(0,0,0,.26);
+    }
+
+    .subtitle {
+      max-width: 590px;
+      margin: 0 auto 28px;
+      font-size: clamp(1rem, 2.4vw, 1.28rem);
+      line-height: 1.9;
+      color: rgba(255,255,255,.88);
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .btn:hover { transform: translateY(-3px) scale(1.02); }
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      box-shadow: 0 12px 30px rgba(255,79,135,.32);
+    }
+
+    .btn-soft {
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .music-panel {
+      position: fixed;
+      top: max(14px, env(safe-area-inset-top));
+      right: max(14px, env(safe-area-inset-right));
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      background: rgba(20,10,25,.48);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.22);
+    }
+
+    .music-panel button {
+      min-width: 42px;
+      min-height: 42px;
+      padding: 8px 11px;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,.12);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .music-panel button:active {
+      transform: scale(.94);
+      background: rgba(255,255,255,.22);
+    }
+
+    .music-panel .play-button {
+      min-width: 104px;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+    }
+
+    .volume-level {
+      min-width: 42px;
+      text-align: center;
+      font-size: .82rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ios-volume-note {
+      position: fixed;
+      top: calc(max(14px, env(safe-area-inset-top)) + 60px);
+      right: max(14px, env(safe-area-inset-right));
+      z-index: 20;
+      display: none;
+      max-width: 245px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      color: rgba(255,255,255,.9);
+      background: rgba(20,10,25,.7);
+      font-size: .75rem;
+      line-height: 1.45;
+      text-align: right;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    .ios-volume-note.show { display: block; }
+
+    main {
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      width: min(1050px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 92px 0;
+    }
+
+    .section-title {
+      font-family: "Itim", cursive;
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      margin-bottom: 14px;
+    }
+
+    .section-note {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 38px;
+      color: rgba(255,255,255,.76);
+      line-height: 1.8;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+      max-width: 780px;
+      margin: auto;
+    }
+
+    .moment {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.18);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: .7s ease;
+    }
+
+    .moment.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .moment strong {
+      display: block;
+      color: #ffd5e4;
+      margin-bottom: 8px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 34px;
+      align-items: stretch;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 8px;
+    }
+
+    .photo {
+      min-height: 300px;
+      aspect-ratio: 3 / 2;
+      width: 100%;
+      isolation: isolate;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.23);
+      background-size: cover;
+      background-position: center;
+      transition: .35s ease;
+    }
+
+    .photo:hover { transform: translateY(-7px) rotate(-1deg) scale(1.01); }
+    @media (hover: none) {
+      .photo:hover { transform: none; }
+    }
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 32%, rgba(20,5,18,.88));
+    }
+
+    .photo span {
+      position: relative;
+      z-index: 2;
+      display: block;
+      width: 100%;
+      font-weight: 600;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
+
+    .p1 { background-image: url('memory-1.png'); background-position: center center; }
+    .p2 { background-image: url('memory-2.png'); background-position: center center; }
+    .p3 { background-image: url('memory-3.png'); background-position: center center; }
+
+    .letter-wrap {
+      display: grid;
+      place-items: center;
+      min-height: 430px;
+    }
+
+    .envelope {
+      width: min(520px, 92vw);
+      height: 330px;
+      position: relative;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .envelope-base {
+      position: absolute;
+      inset: 70px 0 0;
+      border-radius: 16px;
+      background: #f8c7d7;
+      box-shadow: 0 25px 55px rgba(0,0,0,.28);
+      overflow: hidden;
+    }
+
+    .envelope-base::before,
+    .envelope-base::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 70%;
+      height: 100%;
+      background: #f3afc7;
+    }
+
+    .envelope-base::before {
+      left: -20%;
+      transform: skewX(32deg);
+    }
+
+    .envelope-base::after {
+      right: -20%;
+      transform: skewX(-32deg);
+    }
+
+    .flap {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background: #ffdae6;
+      transform-origin: top;
+      transition: .8s ease;
+      z-index: 5;
+    }
+
+    .paper {
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      top: 92px;
+      min-height: 260px;
+      padding: 28px;
+      border-radius: 16px;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.95;
+      z-index: 3;
+      transition: .9s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+      overflow: auto;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope.open .paper {
+      transform: translateY(-120px);
+      z-index: 6;
+    }
+
+    .tap-note {
+      text-align: center;
+      opacity: .75;
+      margin-top: 28px;
+    }
+
+    .question-card {
+      max-width: 720px;
+      margin: auto;
+      padding: 42px 28px;
+      text-align: center;
+      border-radius: 30px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    .question-card h3 {
+      font-family: "Itim", cursive;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0 0 12px;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    #answer {
+      min-height: 74px;
+      margin-top: 24px;
+      line-height: 1.8;
+      font-weight: 600;
+      color: #ffe1eb;
+    }
+
+    footer {
+      text-align: center;
+      padding: 38px 20px 50px;
+      opacity: .65;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        width: min(100%, 680px);
+        padding: 8px 0;
+      }
+
+      .photo {
+        min-height: 0;
+        aspect-ratio: 16 / 10;
+        border-radius: 22px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero-card { padding: 42px 20px; }
+      section {
+        width: min(100% - 36px, 1050px);
+        padding: 70px 0;
+      }
+
+      .gallery {
+        gap: 32px;
+      }
+
+      .photo {
+        aspect-ratio: 4 / 3;
+        padding: 18px;
+      }
+
+      .photo span {
+        font-size: .95rem;
+        line-height: 1.65;
+      }
+
+      .envelope { transform: scale(.9); }
+
+      .music-panel {
+        left: max(10px, env(safe-area-inset-left));
+        right: max(10px, env(safe-area-inset-right));
+        top: max(10px, env(safe-area-inset-top));
+        justify-content: center;
+      }
+
+      .music-panel .play-button {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .ios-volume-note {
+        left: max(10px, env(safe-area-inset-left));
+        right: max(10px, env(safe-area-inset-right));
+        top: calc(max(10px, env(safe-area-inset-top)) + 62px);
+        max-width: none;
+        text-align: center;
+      }
+    }
+  
+    .audio-entry {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      place-items: center;
+      padding:
+        calc(24px + env(safe-area-inset-top))
+        calc(20px + env(safe-area-inset-right))
+        calc(24px + env(safe-area-inset-bottom))
+        calc(20px + env(safe-area-inset-left));
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255,124,168,.25), transparent 36%),
+        rgba(22, 8, 29, .94);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    .audio-entry.show { display: grid; }
+
+    .audio-entry-card {
+      width: min(460px, 100%);
+      padding: 36px 24px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 28px;
+      text-align: center;
+      background: rgba(255,255,255,.11);
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+    }
+
+    .audio-entry-heart {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 3rem;
+      animation: entryPulse 1.5s ease-in-out infinite;
+    }
+
+    .audio-entry h2 {
+      margin: 0 0 10px;
+      font-family: "Itim", cursive;
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .audio-entry p {
+      margin: 0 0 24px;
+      color: rgba(255,255,255,.82);
+      line-height: 1.8;
+    }
+
+    .audio-entry-button {
+      width: 100%;
+      min-height: 54px;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      box-shadow: 0 12px 30px rgba(255,79,135,.34);
+      font: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .audio-entry-button:active { transform: scale(.98); }
+
+    @keyframes entryPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+
+  </style>
+  <link rel="preload" as="image" href="memory-1.png">
+  <link rel="preload" as="image" href="memory-2.png">
+  <link rel="preload" as="image" href="memory-3.png">
+</head>
+<body>
+
+  <div class="audio-entry" id="audioEntry" role="dialog" aria-modal="true" aria-labelledby="audioEntryTitle">
+    <div class="audio-entry-card">
+      <span class="audio-entry-heart">🤍</span>
+      <h2 id="audioEntryTitle">มีบางอย่างอยากให้หนูดู</h2>
+      <p>แตะหนึ่งครั้งเพื่อเข้าสู่เว็บไซต์พร้อมเปิดเพลงนะคะ</p>
+      <button type="button" class="audio-entry-button" id="audioEntryButton">
+        เปิดเว็บไซต์พร้อมเพลง
+      </button>
+    </div>
+  </div>
+
+  <div class="stars" id="stars"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="music-panel" aria-label="ตัวควบคุมเพลง">
+    <button type="button" id="muteBtn" aria-label="ปิดหรือเปิดเสียง">🔊</button>
+    <button type="button" id="volumeDownBtn" aria-label="ลดเสียง">−</button>
+    <span class="volume-level" id="volumeLevel" aria-live="polite">60%</span>
+    <button type="button" id="volumeUpBtn" aria-label="เพิ่มเสียง">+</button>
+    <button type="button" class="play-button" id="musicBtn">♫ เปิดเพลง</button>
+  </div>
+  <div class="ios-volume-note" id="iosVolumeNote">
+    บน iPhone หากระดับเสียงไม่เปลี่ยน กรุณาใช้ปุ่มเพิ่ม–ลดเสียงด้านข้างเครื่อง
+  </div>
+
+  <audio id="music" loop autoplay preload="auto" playsinline webkit-playsinline>
+    <source src="sry1.mp3" type="audio/mpeg">
+    เบราว์เซอร์นี้ไม่รองรับการเล่นเสียง
+  </audio>
+
+  <header class="hero">
+    <div class="hero-card">
+      <div class="mini">เว็บไซต์นี้สร้างมาเพื่อหนูคนเดียว</div>
+      <h1>ขอโทษนะ 🤍</h1>
+      <p class="subtitle">
+        พี่อาจพูดไม่เก่ง และบางครั้งก็ทำอะไรไม่คิด
+        แต่ครั้งนี้ พี่อยากใช้สิ่งที่ พี่ทำเป็น มาบอกว่า พี่แคร์หนูมากแค่ไหน
+      </p>
+      <a class="btn btn-primary" href="#story">กดตรงนี้นะ</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="story">
+      <h2 class="section-title">สิ่งที่ พี่อยากบอก</h2>
+      <p class="section-note">บางคำอาจดูธรรมดา แต่ทุกคำในนี้ตั้งใจเขียนถึงหนูจริง ๆ</p>
+
+      <div class="timeline">
+        <div class="moment">
+          <strong>พี่รู้ว่าหนูกำลังรู้สึกไม่ดี</strong>
+          และพี่ไม่อยากทำเหมือนว่าความรู้สึกของหนูเป็นเรื่องเล็ก
+        </div>
+        <div class="moment">
+          <strong>พี่ยอมรับว่าพี่ทำพลาด</strong>
+          พี่ขอโทษที่ทำให้หนูเสียใจ ผิดหวัง หรือรู้สึกว่าพี่ไม่ใส่ใจ
+        </div>
+        <div class="moment">
+          <strong>พี่ไม่ได้อยากชนะการทะเลาะครั้งนี้</strong>
+          พี่แค่อยากรักษาหนู และทำให้เรากลับมาคุยกันด้วยความเข้าใจ
+        </div>
+        <div class="moment">
+          <strong>พี่พร้อมแก้ไขด้วยการกระทำ</strong>
+          ไม่ใช่แค่พูดว่าขอโทษ แล้วปล่อยให้เรื่องเดิมเกิดขึ้นอีก
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">ความทรงจำของเรา</h2>
+      <p class="section-note">ภาพความทรงจำทั้งสามภาพที่พี่ตั้งใจเลือกมาเพื่อหนู</p>
+      <div class="gallery">
+        <div class="photo p1"><span>ทุกครั้งที่ได้อยู่ข้างหนู วันธรรมดาก็ดูพิเศษขึ้นมา</span></div>
+        <div class="photo p2"><span>พี่ชอบรอยยิ้มของหนู และไม่อยากเป็นสาเหตุที่ทำให้มันหายไป</span></div>
+        <div class="photo p3"><span>พี่ยังอยากมีรูปใหม่ ๆ และเรื่องดี ๆ กับหนูอีกเยอะเลย</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">มีจดหมายถึงหนู</h2>
+      <p class="section-note">ลองกดที่ซองจดหมายดูนะ</p>
+
+      <div class="letter-wrap">
+        <div>
+          <div class="envelope" id="envelope">
+            <div class="envelope-base"></div>
+            <div class="paper">
+              ถึงลมหนาวที่น่ารักที่สุดของพี่<br><br>
+              พี่เสียใจกับสิ่งที่เกิดขึ้นจริง ๆ และเข้าใจว่าหนูอาจยังไม่พร้อมหายงอนทันที
+              ไม่ได้ทำเว็บนี้เพื่อบังคับให้หนูให้อภัย แต่ทำเพราะอยากให้หนูรู้ว่า
+              หนูสำคัญกับพี่มากกกก พอที่พี่จะตั้งใจทำบางสิ่งขึ้นมาเพื่อบอกความรู้สึกของพี่<br><br>
+              พี่สัญญาว่าจะไม่มีเรื่องแบบนี้เกิดขึ้นอีก จะใส่ใจหนู และเข้าใจหนูให้มากขึ้น
+              และไม่ปล่อยให้หนู คิดว่าพี่ละเลยความรู้สึกของหนู<br><br>
+              ขอโทษนะคะ 🤍
+            </div>
+            <div class="flap"></div>
+          </div>
+          <div class="tap-note">คลิกอีกครั้งเพื่อพับจดหมายกลับ</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="question-card">
+        <h3>ขอโอกาสให้อีกครั้งได้มั้ยคะ?</h3>
+        <p>ไม่ว่าหนูจะตอบแบบไหน พี่จะเคารพการตัดสินใจของหนู</p>
+        <div class="choices">
+          <button class="btn btn-primary" onclick="chooseYes()">🤍 ได้ ลองคุยกัน</button>
+          <button class="btn btn-soft" onclick="chooseNotYet()">ยังไม่พร้อม แต่ก็ไม่ได้ไปไหนนะ</button>
+        </div>
+        <div id="answer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Made with care, code, and a sincere apology.</footer>
+
+  <script>
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 85; i++) {
+      const s = document.createElement("span");
+      s.className = "star";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
+      s.style.animationDelay = Math.random() * 2.5 + "s";
+      stars.appendChild(s);
+    }
+
+    const moments = document.querySelectorAll(".moment");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("show");
+        });
+      }, { threshold: .18 });
+      moments.forEach(item => observer.observe(item));
+    } else {
+      moments.forEach(item => item.classList.add("show"));
+    }
+
+    document.getElementById("envelope").addEventListener("click", function () {
+      this.classList.toggle("open");
+    });
+
+    const music = document.getElementById("music");
+    const musicBtn = document.getElementById("musicBtn");
+    const muteBtn = document.getElementById("muteBtn");
+    const volumeDownBtn = document.getElementById("volumeDownBtn");
+    const volumeUpBtn = document.getElementById("volumeUpBtn");
+    const volumeLevel = document.getElementById("volumeLevel");
+    const iosVolumeNote = document.getElementById("iosVolumeNote");
+
+    const audioEntry = document.getElementById("audioEntry");
+    const audioEntryButton = document.getElementById("audioEntryButton");
+
+    async function attemptImmediatePlayback() {
+      try {
+        music.muted = false;
+        await music.play();
+        musicBtn.textContent = "❚❚ หยุดเพลง";
+        audioEntry.classList.remove("show");
+        document.body.style.overflow = "";
+      } catch (error) {
+        audioEntry.classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    audioEntryButton.addEventListener("click", async () => {
+      try {
+        music.muted = false;
+        await music.play();
+        musicBtn.textContent = "❚❚ หยุดเพลง";
+        audioEntry.classList.remove("show");
+        document.body.style.overflow = "";
+      } catch (error) {
+        audioEntryButton.textContent = "แตะอีกครั้งเพื่อเปิดเพลง";
+      }
+    });
+
+    window.addEventListener("pageshow", attemptImmediatePlayback, { once: true });
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    let desiredVolume = 0.6;
+    let previousVolume = desiredVolume;
+
+    function updateVolumeUI() {
+      const shownVolume = music.muted ? 0 : desiredVolume;
+      volumeLevel.textContent = Math.round(shownVolume * 100) + "%";
+      muteBtn.textContent = music.muted || shownVolume === 0 ? "🔇" : "🔊";
+      muteBtn.setAttribute("aria-label", music.muted ? "เปิดเสียง" : "ปิดเสียง");
+    }
+
+    function applyVolume(nextVolume) {
+      desiredVolume = Math.max(0, Math.min(1, Number(nextVolume.toFixed(1))));
+      if (desiredVolume > 0) previousVolume = desiredVolume;
+      music.muted = desiredVolume === 0;
+
+      // Desktop/Android usually honor this. iOS Safari may keep volume under
+      // hardware control, so the interface also displays an iPhone fallback.
+      try { music.volume = desiredVolume; } catch (error) {}
+
+      updateVolumeUI();
+
+      if (isIOS) {
+        iosVolumeNote.classList.add("show");
+        window.clearTimeout(window.iosNoteTimer);
+        window.iosNoteTimer = window.setTimeout(() => {
+          iosVolumeNote.classList.remove("show");
+        }, 4200);
+      }
+    }
+
+    applyVolume(desiredVolume);
+
+    musicBtn.addEventListener("click", async () => {
+      if (music.paused) {
+        try {
+          // This call happens directly inside a user gesture, as required by iOS Safari.
+          await music.play();
+          musicBtn.textContent = "❚❚ หยุดเพลง";
+        } catch (error) {
+          musicBtn.textContent = "แตะเพื่อเปิดเพลง";
+          iosVolumeNote.textContent =
+            "Safari ยังไม่อนุญาตให้เล่นเพลง กรุณาแตะปุ่มอีกครั้ง และตรวจว่าไฟล์ sry1.mp3 อยู่โฟลเดอร์เดียวกับเว็บ";
+          iosVolumeNote.classList.add("show");
+        }
+      } else {
+        music.pause();
+        musicBtn.textContent = "♫ เปิดเพลง";
+      }
+    });
+
+    volumeDownBtn.addEventListener("click", () => {
+      music.muted = false;
+      applyVolume(desiredVolume - 0.1);
+    });
+
+    volumeUpBtn.addEventListener("click", () => {
+      music.muted = false;
+      applyVolume(desiredVolume + 0.1);
+    });
+
+    muteBtn.addEventListener("click", () => {
+      if (music.muted || desiredVolume === 0) {
+        desiredVolume = previousVolume || 0.6;
+        music.muted = false;
+        try { music.volume = desiredVolume; } catch (error) {}
+      } else {
+        previousVolume = desiredVolume;
+        music.muted = true;
+      }
+      updateVolumeUI();
+    });
+
+    music.addEventListener("play", () => {
+      musicBtn.textContent = "❚❚ หยุดเพลง";
+    });
+
+    music.addEventListener("pause", () => {
+      musicBtn.textContent = "♫ เปิดเพลง";
+    });
+
+    music.addEventListener("error", () => {
+      musicBtn.textContent = "ไม่พบไฟล์เพลง";
+      iosVolumeNote.textContent =
+        "ไม่พบ sry1.mp3 กรุณาวางไฟล์เพลงไว้ในโฟลเดอร์เดียวกับ index.html";
+      iosVolumeNote.classList.add("show");
+    });
+
+    function spawnHearts(amount = 24) {
+      const box = document.getElementById("hearts");
+      for (let i = 0; i < amount; i++) {
+        const h = document.createElement("span");
+        h.className = "heart";
+        h.textContent = Math.random() > .35 ? "♥" : "♡";
+        h.style.left = Math.random() * 100 + "%";
+        h.style.fontSize = (16 + Math.random() * 26) + "px";
+        h.style.animationDuration = (3.2 + Math.random() * 3) + "s";
+        h.style.animationDelay = (Math.random() * .8) + "s";
+        box.appendChild(h);
+        setTimeout(() => h.remove(), 7000);
+      }
+    }
+
+    function chooseYes() {
+      document.getElementById("answer").innerHTML =
+        "ขอบคุณนะ 🤍<br>พี่จะตั้งใจฟัง และจะทำให้การคุยครั้งนี้เป็นพื้นที่ที่ปลอดภัยสำหรับพี่กับหนู";
+      spawnHearts(42);
+    }
+
+    function chooseNotYet() {
+      document.getElementById("answer").innerHTML =
+        "ไม่เป็นไรนะ พี่เข้าใจว่าหนูอาจต้องการเวลา<br>พี่จะไม่เร่งหนู และจะรอจนกว่าหนูจะพร้อม";
+    }
+  </script>
+</body>
+</html>
