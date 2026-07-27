@@ -327,15 +327,18 @@
     .letter-wrap {
       display: grid;
       place-items: center;
-      min-height: 430px;
+      min-height: 360px;
+      padding: 34px 0 44px;
     }
 
     .envelope {
       width: min(520px, 92vw);
-      height: 330px;
+      height: 300px;
       position: relative;
       cursor: pointer;
       perspective: 1000px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .envelope-base {
@@ -376,41 +379,155 @@
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       background: #ffdae6;
       transform-origin: top;
-      transition: .8s ease;
+      transition: transform .7s ease;
       z-index: 5;
     }
 
-    .paper {
+    .envelope-preview {
       position: absolute;
       left: 7%;
       right: 7%;
-      top: 92px;
-      min-height: 260px;
+      top: 94px;
+      height: 170px;
       padding: 28px;
       border-radius: 16px;
       color: var(--ink);
       background: var(--cream);
-      line-height: 1.95;
+      line-height: 1.7;
       z-index: 3;
-      transition: .9s ease;
+      transition: transform .7s ease;
       box-shadow: 0 10px 25px rgba(0,0,0,.18);
-      overflow: auto;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
     }
 
-    .envelope.open .flap {
-      transform: rotateX(180deg);
-      z-index: 1;
+    .envelope:hover .flap,
+    .envelope:focus-visible .flap {
+      transform: rotateX(18deg);
     }
 
-    .envelope.open .paper {
-      transform: translateY(-120px);
-      z-index: 6;
+    .envelope:hover .envelope-preview,
+    .envelope:focus-visible .envelope-preview {
+      transform: translateY(-12px);
     }
 
     .tap-note {
       text-align: center;
       opacity: .75;
-      margin-top: 28px;
+      margin-top: 18px;
+    }
+
+    .letter-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      place-items: center;
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        calc(16px + env(safe-area-inset-right))
+        calc(18px + env(safe-area-inset-bottom))
+        calc(16px + env(safe-area-inset-left));
+      background: rgba(18, 7, 24, .84);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    .letter-modal.open {
+      display: grid;
+      animation: letterFadeIn .25s ease;
+    }
+
+    .letter-dialog {
+      width: min(680px, 100%);
+      max-height: min(82vh, 760px);
+      position: relative;
+      border-radius: 26px;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.88), rgba(255,248,245,.96)),
+        repeating-linear-gradient(
+          transparent 0,
+          transparent 31px,
+          rgba(140,100,115,.08) 32px
+        );
+      box-shadow: 0 30px 90px rgba(0,0,0,.42);
+      overflow: hidden;
+      transform: translateY(12px) scale(.98);
+      animation: letterRise .35s ease forwards;
+    }
+
+    .letter-scroll {
+      max-height: min(82vh, 760px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 54px 42px 46px;
+      line-height: 2;
+      font-size: 1.02rem;
+      overscroll-behavior: contain;
+    }
+
+    .letter-scroll h3 {
+      margin: 0 42px 22px 0;
+      font-family: "Itim", cursive;
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      color: #7c4058;
+    }
+
+    .letter-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      color: var(--ink);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+      font-size: 1.35rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .letter-close:active {
+      transform: scale(.94);
+    }
+
+    @keyframes letterFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes letterRise {
+      to { transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      .letter-wrap {
+        min-height: 310px;
+        padding-bottom: 34px;
+      }
+
+      .envelope {
+        transform: scale(.9);
+      }
+
+      .letter-dialog {
+        max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        border-radius: 22px;
+      }
+
+      .letter-scroll {
+        max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        padding: 58px 24px 38px;
+        font-size: .98rem;
+        line-height: 1.9;
+      }
     }
 
     .question-card {
@@ -500,7 +617,6 @@
         line-height: 1.65;
       }
 
-      .envelope { transform: scale(.9); }
 
       .music-panel {
         left: max(10px, env(safe-area-inset-left));
@@ -685,20 +801,19 @@
 
       <div class="letter-wrap">
         <div>
-          <div class="envelope" id="envelope">
+          <div
+            class="envelope"
+            id="envelope"
+            role="button"
+            tabindex="0"
+            aria-label="เปิดจดหมายถึงหนู"
+            aria-haspopup="dialog"
+          >
             <div class="envelope-base"></div>
-            <div class="paper">
-              ถึงลมหนาวที่น่ารักที่สุดของพี่<br><br>
-              พี่เสียใจกับสิ่งที่เกิดขึ้นจริง ๆ และเข้าใจว่าหนูอาจยังไม่พร้อมหายงอนทันที
-              ไม่ได้ทำเว็บนี้เพื่อบังคับให้หนูให้อภัย แต่ทำเพราะอยากให้หนูรู้ว่า
-              หนูสำคัญกับพี่มากกกก พอที่พี่จะตั้งใจทำบางสิ่งขึ้นมาเพื่อบอกความรู้สึกของพี่<br><br>
-              พี่สัญญาว่าจะไม่มีเรื่องแบบนี้เกิดขึ้นอีก จะใส่ใจหนู และเข้าใจหนูให้มากขึ้น
-              และไม่ปล่อยให้หนู คิดว่าพี่ละเลยความรู้สึกของหนู<br><br>
-              ขอโทษนะคะ 🤍
-            </div>
+            <div class="envelope-preview">กดเพื่อเปิดจดหมายถึงหนู 🤍</div>
             <div class="flap"></div>
           </div>
-          <div class="tap-note">คลิกอีกครั้งเพื่อพับจดหมายกลับ</div>
+          <div class="tap-note">แตะที่ซองเพื่อเปิดอ่านข้อความ</div>
         </div>
       </div>
     </section>
@@ -715,6 +830,34 @@
       </div>
     </section>
   </main>
+
+
+  <div
+    class="letter-modal"
+    id="letterModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="letterModalTitle"
+    aria-hidden="true"
+  >
+    <div class="letter-dialog">
+      <button class="letter-close" id="letterClose" type="button" aria-label="ปิดจดหมาย">×</button>
+      <div class="letter-scroll">
+        <h3 id="letterModalTitle">ถึงลมหนาวที่น่ารักที่สุดของพี่ 🤍</h3>
+
+        พี่เสียใจกับสิ่งที่เกิดขึ้นจริง ๆ และเข้าใจว่าหนูอาจยังไม่พร้อมหายงอนทันที
+        ไม่ได้ทำเว็บนี้เพื่อบังคับให้หนูให้อภัย แต่ทำเพราะอยากให้หนูรู้ว่า
+        หนูสำคัญกับพี่มากกกก พอที่พี่จะตั้งใจทำบางสิ่งขึ้นมาเพื่อบอกความรู้สึกของพี่
+        <br><br>
+
+        พี่สัญญาว่าจะไม่มีเรื่องแบบนี้เกิดขึ้นอีก จะใส่ใจหนู และเข้าใจหนูให้มากขึ้น
+        และไม่ปล่อยให้หนูคิดว่าพี่ละเลยความรู้สึกของหนู
+        <br><br>
+
+        ขอโทษนะคะ 🤍
+      </div>
+    </div>
+  </div>
 
   <footer>Made with care, code, and a sincere apology.</footer>
 
@@ -741,8 +884,42 @@
       moments.forEach(item => item.classList.add("show"));
     }
 
-    document.getElementById("envelope").addEventListener("click", function () {
-      this.classList.toggle("open");
+    const envelope = document.getElementById("envelope");
+    const letterModal = document.getElementById("letterModal");
+    const letterClose = document.getElementById("letterClose");
+
+    function openLetter() {
+      letterModal.classList.add("open");
+      letterModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      window.setTimeout(() => letterClose.focus(), 50);
+    }
+
+    function closeLetter() {
+      letterModal.classList.remove("open");
+      letterModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      envelope.focus();
+    }
+
+    envelope.addEventListener("click", openLetter);
+    envelope.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openLetter();
+      }
+    });
+
+    letterClose.addEventListener("click", closeLetter);
+
+    letterModal.addEventListener("click", (event) => {
+      if (event.target === letterModal) closeLetter();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && letterModal.classList.contains("open")) {
+        closeLetter();
+      }
     });
 
     const music = document.getElementById("music");
@@ -890,13 +1067,13 @@
 
     function chooseYes() {
       document.getElementById("answer").innerHTML =
-        "ขอบคุณนะ 🤍<br>พี่จะตั้งใจฟัง และจะทำให้การคุยครั้งนี้เป็นพื้นที่ที่ปลอดภัยสำหรับพี่กับหนู";
+        "ขอบคุณนะ 🤍<br>ผมจะตั้งใจฟัง และจะทำให้การคุยครั้งนี้เป็นพื้นที่ที่ปลอดภัยสำหรับเราทั้งคู่";
       spawnHearts(42);
     }
 
     function chooseNotYet() {
       document.getElementById("answer").innerHTML =
-        "ไม่เป็นไรนะ พี่เข้าใจว่าหนูอาจต้องการเวลา<br>พี่จะไม่เร่งหนู และจะรอจนกว่าหนูจะพร้อม";
+        "ไม่เป็นไรนะ ผมเข้าใจว่าคุณอาจต้องการเวลา<br>ผมจะไม่เร่งคุณ และจะรอจนกว่าคุณจะพร้อม";
     }
   </script>
 </body>
