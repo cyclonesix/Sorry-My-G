@@ -2,1079 +2,238 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#4a2345" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>ถึงคนที่น่ารักที่สุด</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09070d" />
+  <meta name="description" content="A cinematic love story made for ลมหนาว" />
+  <title>For Lomnao — จากพี่ถึงหนู</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Itim&family=Noto+Sans+Thai:wght@300;400;600;700&display=swap');
-
-    :root {
-      --pink: #ff7ca8;
-      --rose: #ff4f87;
-      --cream: #fff8f5;
-      --ink: #4d3540;
-      --glass: rgba(255,255,255,.16);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: white;
-      font-family: "Noto Sans Thai", sans-serif;
-      overflow-x: hidden;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(255,151,189,.30), transparent 28%),
-        radial-gradient(circle at 85% 18%, rgba(183,116,255,.22), transparent 26%),
-        linear-gradient(135deg, #271a35 0%, #4a2345 48%, #7f314f 100%);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(rgba(25,10,30,.15), rgba(20,5,25,.50));
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .stars, .hearts {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .star {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-      opacity: .75;
-      animation: twinkle 2.4s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      from { opacity: .2; transform: scale(.7); }
-      to { opacity: 1; transform: scale(1.3); }
-    }
-
-    .heart {
-      position: absolute;
-      bottom: -30px;
-      opacity: .7;
-      animation: floatUp linear forwards;
-    }
-
-    @keyframes floatUp {
-      to {
-        transform: translateY(-115vh) rotate(25deg);
-        opacity: 0;
-      }
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 32px 18px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-card {
-      width: min(760px, 100%);
-      padding: 54px 30px;
-      border: 1px solid rgba(255,255,255,.24);
-      border-radius: 32px;
-      text-align: center;
-      background: rgba(255,255,255,.10);
-      -webkit-backdrop-filter: blur(18px);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 30px 80px rgba(0,0,0,.28);
-    }
-
-    .mini {
-      font-size: .88rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      opacity: .75;
-    }
-
-    h1 {
-      font-family: "Itim", cursive;
-      font-size: clamp(2.5rem, 8vw, 5.8rem);
-      line-height: 1;
-      margin: 18px 0;
-      text-shadow: 0 8px 30px rgba(0,0,0,.26);
-    }
-
-    .subtitle {
-      max-width: 590px;
-      margin: 0 auto 28px;
-      font-size: clamp(1rem, 2.4vw, 1.28rem);
-      line-height: 1.9;
-      color: rgba(255,255,255,.88);
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 999px;
-      padding: 14px 24px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .25s ease;
-    }
-
-    .btn:hover { transform: translateY(-3px) scale(1.02); }
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--pink), var(--rose));
-      box-shadow: 0 12px 30px rgba(255,79,135,.32);
-    }
-
-    .btn-soft {
-      color: var(--ink);
-      background: #fff;
-    }
-
-    .music-panel {
-      position: fixed;
-      top: max(14px, env(safe-area-inset-top));
-      right: max(14px, env(safe-area-inset-right));
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px;
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 999px;
-      background: rgba(20,10,25,.48);
-      -webkit-backdrop-filter: blur(14px);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 10px 28px rgba(0,0,0,.22);
-    }
-
-    .music-panel button {
-      min-width: 42px;
-      min-height: 42px;
-      padding: 8px 11px;
-      border: 0;
-      border-radius: 999px;
-      color: white;
-      background: rgba(255,255,255,.12);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .music-panel button:active {
-      transform: scale(.94);
-      background: rgba(255,255,255,.22);
-    }
-
-    .music-panel .play-button {
-      min-width: 104px;
-      background: linear-gradient(135deg, var(--pink), var(--rose));
-    }
-
-    .volume-level {
-      min-width: 42px;
-      text-align: center;
-      font-size: .82rem;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .ios-volume-note {
-      position: fixed;
-      top: calc(max(14px, env(safe-area-inset-top)) + 60px);
-      right: max(14px, env(safe-area-inset-right));
-      z-index: 20;
-      display: none;
-      max-width: 245px;
-      padding: 9px 12px;
-      border-radius: 14px;
-      color: rgba(255,255,255,.9);
-      background: rgba(20,10,25,.7);
-      font-size: .75rem;
-      line-height: 1.45;
-      text-align: right;
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-    }
-
-    .ios-volume-note.show { display: block; }
-
-    main {
-      position: relative;
-      z-index: 2;
-    }
-
-    section {
-      width: min(1050px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 92px 0;
-    }
-
-    .section-title {
-      font-family: "Itim", cursive;
-      text-align: center;
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      margin-bottom: 14px;
-    }
-
-    .section-note {
-      text-align: center;
-      max-width: 650px;
-      margin: 0 auto 38px;
-      color: rgba(255,255,255,.76);
-      line-height: 1.8;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 18px;
-      max-width: 780px;
-      margin: auto;
-    }
-
-    .moment {
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.11);
-      border: 1px solid rgba(255,255,255,.18);
-      -webkit-backdrop-filter: blur(14px);
-      backdrop-filter: blur(14px);
-      opacity: 0;
-      transform: translateY(24px);
-      transition: .7s ease;
-    }
-
-    .moment.show {
-      opacity: 1;
-      transform: none;
-    }
-
-    .moment strong {
-      display: block;
-      color: #ffd5e4;
-      margin-bottom: 8px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 34px;
-      align-items: stretch;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 10px 8px;
-    }
-
-    .photo {
-      min-height: 300px;
-      aspect-ratio: 3 / 2;
-      width: 100%;
-      isolation: isolate;
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      padding: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.23);
-      background-size: cover;
-      background-position: center;
-      transition: .35s ease;
-    }
-
-    .photo:hover { transform: translateY(-7px) rotate(-1deg) scale(1.01); }
-    @media (hover: none) {
-      .photo:hover { transform: none; }
-    }
-    .photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(transparent 32%, rgba(20,5,18,.88));
-    }
-
-    .photo span {
-      position: relative;
-      z-index: 2;
-      display: block;
-      width: 100%;
-      font-weight: 600;
-      line-height: 1.55;
-      overflow-wrap: anywhere;
-      text-wrap: balance;
-    }
-
-    .p1 { background-image: url('memory-1.png'); background-position: center center; }
-    .p2 { background-image: url('memory-2.png'); background-position: center center; }
-    .p3 { background-image: url('memory-3.png'); background-position: center center; }
-
-    .letter-wrap {
-      display: grid;
-      place-items: center;
-      min-height: 360px;
-      padding: 34px 0 44px;
-    }
-
-    .envelope {
-      width: min(520px, 92vw);
-      height: 300px;
-      position: relative;
-      cursor: pointer;
-      perspective: 1000px;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .envelope-base {
-      position: absolute;
-      inset: 70px 0 0;
-      border-radius: 16px;
-      background: #f8c7d7;
-      box-shadow: 0 25px 55px rgba(0,0,0,.28);
-      overflow: hidden;
-    }
-
-    .envelope-base::before,
-    .envelope-base::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      width: 70%;
-      height: 100%;
-      background: #f3afc7;
-    }
-
-    .envelope-base::before {
-      left: -20%;
-      transform: skewX(32deg);
-    }
-
-    .envelope-base::after {
-      right: -20%;
-      transform: skewX(-32deg);
-    }
-
-    .flap {
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      height: 180px;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      background: #ffdae6;
-      transform-origin: top;
-      transition: transform .7s ease;
-      z-index: 5;
-    }
-
-    .envelope-preview {
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      top: 94px;
-      height: 170px;
-      padding: 28px;
-      border-radius: 16px;
-      color: var(--ink);
-      background: var(--cream);
-      line-height: 1.7;
-      z-index: 3;
-      transition: transform .7s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,.18);
-      text-align: center;
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-    }
-
-    .envelope:hover .flap,
-    .envelope:focus-visible .flap {
-      transform: rotateX(18deg);
-    }
-
-    .envelope:hover .envelope-preview,
-    .envelope:focus-visible .envelope-preview {
-      transform: translateY(-12px);
-    }
-
-    .tap-note {
-      text-align: center;
-      opacity: .75;
-      margin-top: 18px;
-    }
-
-    .letter-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      display: none;
-      place-items: center;
-      padding:
-        calc(18px + env(safe-area-inset-top))
-        calc(16px + env(safe-area-inset-right))
-        calc(18px + env(safe-area-inset-bottom))
-        calc(16px + env(safe-area-inset-left));
-      background: rgba(18, 7, 24, .84);
-      -webkit-backdrop-filter: blur(16px);
-      backdrop-filter: blur(16px);
-    }
-
-    .letter-modal.open {
-      display: grid;
-      animation: letterFadeIn .25s ease;
-    }
-
-    .letter-dialog {
-      width: min(680px, 100%);
-      max-height: min(82vh, 760px);
-      position: relative;
-      border-radius: 26px;
-      color: var(--ink);
-      background:
-        linear-gradient(rgba(255,255,255,.88), rgba(255,248,245,.96)),
-        repeating-linear-gradient(
-          transparent 0,
-          transparent 31px,
-          rgba(140,100,115,.08) 32px
-        );
-      box-shadow: 0 30px 90px rgba(0,0,0,.42);
-      overflow: hidden;
-      transform: translateY(12px) scale(.98);
-      animation: letterRise .35s ease forwards;
-    }
-
-    .letter-scroll {
-      max-height: min(82vh, 760px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 54px 42px 46px;
-      line-height: 2;
-      font-size: 1.02rem;
-      overscroll-behavior: contain;
-    }
-
-    .letter-scroll h3 {
-      margin: 0 42px 22px 0;
-      font-family: "Itim", cursive;
-      font-size: clamp(1.8rem, 6vw, 2.6rem);
-      color: #7c4058;
-    }
-
-    .letter-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 2;
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 50%;
-      color: var(--ink);
-      background: rgba(255,255,255,.84);
-      box-shadow: 0 8px 24px rgba(0,0,0,.15);
-      font-size: 1.35rem;
-      cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .letter-close:active {
-      transform: scale(.94);
-    }
-
-    @keyframes letterFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes letterRise {
-      to { transform: translateY(0) scale(1); }
-    }
-
-    @media (max-width: 600px) {
-      .letter-wrap {
-        min-height: 310px;
-        padding-bottom: 34px;
-      }
-
-      .envelope {
-        transform: scale(.9);
-      }
-
-      .letter-dialog {
-        max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-        border-radius: 22px;
-      }
-
-      .letter-scroll {
-        max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-        padding: 58px 24px 38px;
-        font-size: .98rem;
-        line-height: 1.9;
-      }
-    }
-
-    .question-card {
-      max-width: 720px;
-      margin: auto;
-      padding: 42px 28px;
-      text-align: center;
-      border-radius: 30px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      -webkit-backdrop-filter: blur(16px);
-      backdrop-filter: blur(16px);
-    }
-
-    .question-card h3 {
-      font-family: "Itim", cursive;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin: 0 0 12px;
-    }
-
-    .choices {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    #answer {
-      min-height: 74px;
-      margin-top: 24px;
-      line-height: 1.8;
-      font-weight: 600;
-      color: #ffe1eb;
-    }
-
-    footer {
-      text-align: center;
-      padding: 38px 20px 50px;
-      opacity: .65;
-      position: relative;
-      z-index: 2;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .gallery {
-        grid-template-columns: 1fr;
-        gap: 38px;
-        width: min(100%, 680px);
-        padding: 8px 0;
-      }
-
-      .photo {
-        min-height: 0;
-        aspect-ratio: 16 / 10;
-        border-radius: 22px;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .hero-card { padding: 42px 20px; }
-      section {
-        width: min(100% - 36px, 1050px);
-        padding: 70px 0;
-      }
-
-      .gallery {
-        gap: 32px;
-      }
-
-      .photo {
-        aspect-ratio: 4 / 3;
-        padding: 18px;
-      }
-
-      .photo span {
-        font-size: .95rem;
-        line-height: 1.65;
-      }
-
-
-      .music-panel {
-        left: max(10px, env(safe-area-inset-left));
-        right: max(10px, env(safe-area-inset-right));
-        top: max(10px, env(safe-area-inset-top));
-        justify-content: center;
-      }
-
-      .music-panel .play-button {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .ios-volume-note {
-        left: max(10px, env(safe-area-inset-left));
-        right: max(10px, env(safe-area-inset-right));
-        top: calc(max(10px, env(safe-area-inset-top)) + 62px);
-        max-width: none;
-        text-align: center;
-      }
-    }
-  
-    .audio-entry {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: none;
-      place-items: center;
-      padding:
-        calc(24px + env(safe-area-inset-top))
-        calc(20px + env(safe-area-inset-right))
-        calc(24px + env(safe-area-inset-bottom))
-        calc(20px + env(safe-area-inset-left));
-      background:
-        radial-gradient(circle at 50% 30%, rgba(255,124,168,.25), transparent 36%),
-        rgba(22, 8, 29, .94);
-      -webkit-backdrop-filter: blur(18px);
-      backdrop-filter: blur(18px);
-    }
-
-    .audio-entry.show { display: grid; }
-
-    .audio-entry-card {
-      width: min(460px, 100%);
-      padding: 36px 24px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 28px;
-      text-align: center;
-      background: rgba(255,255,255,.11);
-      box-shadow: 0 24px 70px rgba(0,0,0,.35);
-    }
-
-    .audio-entry-heart {
-      display: block;
-      margin-bottom: 12px;
-      font-size: 3rem;
-      animation: entryPulse 1.5s ease-in-out infinite;
-    }
-
-    .audio-entry h2 {
-      margin: 0 0 10px;
-      font-family: "Itim", cursive;
-      font-size: clamp(2rem, 8vw, 3rem);
-    }
-
-    .audio-entry p {
-      margin: 0 0 24px;
-      color: rgba(255,255,255,.82);
-      line-height: 1.8;
-    }
-
-    .audio-entry-button {
-      width: 100%;
-      min-height: 54px;
-      border: 0;
-      border-radius: 999px;
-      color: white;
-      background: linear-gradient(135deg, var(--pink), var(--rose));
-      box-shadow: 0 12px 30px rgba(255,79,135,.34);
-      font: inherit;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .audio-entry-button:active { transform: scale(.98); }
-
-    @keyframes entryPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.14); }
-    }
+:root{--bg:#09070d;--bg2:#100d16;--paper:#efe7d5;--ink:#29222a;--white:#f7f3f7;--muted:#aaa1ae;--pink:#df8eaa;--rose:#9e506d;--line:rgba(255,255,255,.12);--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:"IBM Plex Sans Thai",sans-serif;overflow-x:hidden}body.locked{overflow:hidden}button,a{font:inherit}.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}#ambientCanvas{position:fixed;inset:0;z-index:-2;width:100%;height:100%}#cursorGlow{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(220,121,158,.1),transparent 68%);transform:translate(-50%,-50%)}
+.loader{position:fixed;inset:0;z-index:3000;background:#050407;display:grid;place-items:center;transition:opacity 1s var(--ease),visibility 1s}.loader.hide{opacity:0;visibility:hidden}.loader-noise{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.025),transparent 70%);animation:sweep 1.5s infinite}.loader-content{text-align:center;width:min(580px,82vw)}.loader-mark{display:flex;justify-content:center;gap:.08em;font-size:clamp(2.6rem,10vw,7rem);font-weight:600;letter-spacing:-.05em}.loader-mark span{opacity:0;transform:scaleY(1.8);animation:letterIn .7s var(--ease) forwards}.loader-mark span:nth-child(2){animation-delay:.08s}.loader-mark span:nth-child(3){animation-delay:.16s}.loader-mark span:nth-child(4){animation-delay:.24s}.loader-mark span:nth-child(5){animation-delay:.32s}.loader-mark span:nth-child(6){animation-delay:.4s}.loader-line{height:2px;background:#211921;margin:26px 0 15px;overflow:hidden}.loader-line span{display:block;height:100%;background:var(--pink);animation:loading 2.6s var(--ease) forwards}.loader p{font-size:.8rem;letter-spacing:.24em;color:#817682}.topbar{position:fixed;inset:0 0 auto;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:24px 34px;mix-blend-mode:difference}.brand{color:#fff;text-decoration:none;font-family:"Playfair Display",serif;font-size:1.1rem;letter-spacing:.12em}.top-actions{display:flex;gap:12px}.icon-btn,.menu-btn{width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:rgba(0,0,0,.05);color:white;display:grid;place-items:center;cursor:pointer}.menu-btn{gap:5px;align-content:center}.menu-btn span{display:block;width:17px;height:1px;background:#fff}.sound-bars{display:flex;gap:3px;align-items:center;height:14px}.sound-bars i{width:2px;background:#fff;height:5px}.sound-bars i:nth-child(2){height:12px}.sound-bars i:nth-child(3){height:8px}.sound-on .sound-bars i{animation:soundbar .8s infinite alternate}.menu-panel{position:fixed;z-index:900;inset:0;background:rgba(8,6,11,.96);backdrop-filter:blur(20px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:22px;opacity:0;visibility:hidden;transition:.55s var(--ease)}.menu-panel.open{opacity:1;visibility:visible}.menu-panel a{color:white;text-decoration:none;font-family:"Playfair Display",serif;font-size:clamp(2rem,6vw,4.6rem);transition:.25s}.menu-panel a:hover{color:var(--pink);transform:translateX(10px)}
+.scene{position:relative;min-height:100vh;padding:120px 7vw}.hero{display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 30%,#241420 0,transparent 38%),linear-gradient(#08060a,#0b0810)}.hero-aurora{position:absolute;width:70vw;height:70vw;border-radius:50%;filter:blur(110px);background:conic-gradient(from 90deg,transparent,#5e2e49,#271f5d,transparent);opacity:.28;animation:float 13s ease-in-out infinite}.hero-content{position:relative;text-align:center;z-index:2}.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--pink);font-weight:600}.hero h1,.section-heading h2,.gallery-head h2,.letter-intro h2,.ending h2{font-family:"Playfair Display","IBM Plex Sans Thai",serif;font-weight:600;line-height:.96;margin:25px 0}.hero h1 span{display:block;font-size:clamp(4rem,11vw,9.5rem)}.hero h1 em{display:block;color:var(--pink);font-size:clamp(1.5rem,4vw,3.5rem);font-weight:400}.hero-copy{color:#c1b8c2;line-height:1.9;font-size:1.05rem}.primary-btn{margin-top:25px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.04);color:white;padding:16px 20px 16px 24px;border-radius:999px;cursor:pointer;display:inline-flex;gap:30px;align-items:center;backdrop-filter:blur(10px);transition:.35s}.primary-btn:hover{background:white;color:#111;transform:translateY(-3px)}.scroll-cue{position:absolute;bottom:26px;display:flex;flex-direction:column;align-items:center;gap:8px}.scroll-cue span{width:1px;height:46px;background:linear-gradient(transparent,#fff);animation:scrollLine 1.6s infinite}.scroll-cue small{font-size:.58rem;letter-spacing:.2em;color:#777}.reveal{opacity:0;transform:translateY(35px);filter:blur(6px);transition:opacity 1s var(--ease),transform 1s var(--ease),filter 1s}.reveal.visible{opacity:1;transform:none;filter:none}.reveal-group .reveal:nth-child(2){transition-delay:.12s}.reveal-group .reveal:nth-child(3){transition-delay:.24s}.reveal-group .reveal:nth-child(4){transition-delay:.36s}
+.section-index{position:absolute;top:120px;right:7vw;font:italic 600 4rem "Playfair Display";color:rgba(255,255,255,.08)}.story{background:linear-gradient(180deg,#0b0810,#120d15)}.section-heading{max-width:850px}.section-heading h2,.gallery-head h2,.letter-intro h2{font-size:clamp(3rem,7vw,6.6rem)}em{color:var(--pink);font-weight:400}.timeline{margin-top:100px;border-top:1px solid var(--line)}.timeline-card{display:grid;grid-template-columns:160px 1fr 1fr;gap:35px;padding:42px 0;border-bottom:1px solid var(--line);align-items:start}.timeline-card span{font-size:.75rem;color:var(--pink);letter-spacing:.12em}.timeline-card h3{font-size:clamp(1.2rem,2.2vw,2rem);font-weight:500;margin:0}.timeline-card p{color:var(--muted);line-height:1.85;margin:0}.quote-scene{display:grid;place-items:center;min-height:75vh;background:radial-gradient(circle,#21151f,#0c0910 62%)}.quote-wrap{text-align:center}.quote-wrap>span{font:italic 8rem "Playfair Display";line-height:.4;color:var(--rose)}blockquote{margin:25px 0 0;font-family:"Playfair Display","IBM Plex Sans Thai",serif;font-size:clamp(2rem,5vw,4.6rem);line-height:1.25}
+.gallery-section{background:#0b0910}.gallery-head{display:flex;justify-content:space-between;align-items:end;gap:50px}.gallery-note{color:var(--muted);line-height:1.8;margin-bottom:30px}.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:90px}.gallery-item{grid-column:span 5;margin:0;overflow:hidden;position:relative;border-radius:3px;background:#17121b;cursor:zoom-in}.gallery-item:nth-child(2){grid-column:7/span 6;margin-top:120px}.gallery-item.wide{grid-column:2/span 8}.gallery-item:nth-child(4){grid-column:9/span 4;margin-top:80px}.gallery-item img{display:block;width:100%;height:470px;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}.gallery-item.tall img{height:680px}.gallery-item.wide img{height:420px}.gallery-item:hover img{transform:scale(1.055);filter:brightness(1.08)}.gallery-item figcaption{position:absolute;bottom:0;left:0;right:0;padding:60px 24px 22px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:.88rem}.gallery-item figcaption span{color:var(--pink);margin-right:10px}.replace-hint{text-align:center;color:#756d78;margin-top:65px;font-size:.8rem}.replace-hint code{color:#c99ab0}
+.letter-section{background:linear-gradient(#0b0910,#1a1119);overflow:hidden}.letter-intro{text-align:center}.notebook-shell{width:min(900px,92vw);margin:80px auto 0;position:relative;perspective:1800px}.notebook{position:relative;min-height:610px;transform-style:preserve-3d}.notebook-shadow{position:absolute;inset:8% 4% -3%;background:#000;filter:blur(45px);opacity:.55}.book-cover,.book-pages{position:absolute;inset:0;border-radius:7px;transform-origin:left center;backface-visibility:hidden}.book-cover{z-index:3;background:linear-gradient(135deg,#522c3e,#2c1722);border:1px solid rgba(255,255,255,.16);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:inset 20px 0 35px rgba(0,0,0,.3),0 30px 90px #000;transition:transform 1.45s var(--ease),opacity .3s 1.15s}.book-cover:before{content:"";position:absolute;inset:18px;border:1px solid rgba(225,178,198,.3);border-radius:2px}.book-cover span{letter-spacing:.32em;font-size:.7rem;color:#d1aabd}.book-cover h3{font:italic 600 clamp(3rem,8vw,6rem) "Playfair Display";margin:25px 0 2px}.book-cover p{color:#c7a4b3}.book-cover button{position:relative;z-index:2;margin-top:35px;padding:12px 28px;border:1px solid #d5a8bb;background:transparent;color:#fff;border-radius:999px;cursor:pointer}.book-pages{background:var(--paper);color:var(--ink);padding:65px clamp(30px,7vw,90px);overflow:auto;box-shadow:inset 18px 0 32px rgba(91,59,65,.14);transform:rotateY(0)}.paper-lines{position:absolute;inset:0;background:repeating-linear-gradient(transparent 0,transparent 31px,rgba(64,98,125,.11) 32px);pointer-events:none}.letter-copy{position:relative;font-size:1.02rem;line-height:2;max-width:680px;margin:auto}.letter-copy p{margin:0 0 20px}.letter-copy .date{text-align:right;color:#776a6f}.signature{text-align:right;padding-top:10px;font-family:"Playfair Display","IBM Plex Sans Thai",serif}.notebook.open .book-cover{transform:rotateY(-158deg);opacity:.1;pointer-events:none}.book-tip{text-align:center;color:#8b7e89;font-size:.8rem;margin-top:22px}
+.ending{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;background:radial-gradient(circle at 50% 70%,#241526,#07060b 58%)}.ending-content{position:relative;z-index:2}.ending h2{font-size:clamp(3rem,7vw,7rem)}.ending-line{color:#cbc1cc;font-size:1.1rem}.final-name{font:italic 600 clamp(2.5rem,7vw,6rem) "Playfair Display";color:var(--pink);margin-top:45px}.ending footer{position:absolute;bottom:25px;left:7vw;right:7vw;display:flex;justify-content:space-between;font-size:.58rem;letter-spacing:.22em;color:#6f6671}.shooting-star{position:absolute;width:140px;height:1px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(-28deg);filter:drop-shadow(0 0 5px #fff);animation:shoot 1.2s linear forwards}.lightbox{position:fixed;inset:0;z-index:2500;background:rgba(4,3,6,.95);display:grid;place-items:center;opacity:0;visibility:hidden;transition:.45s}.lightbox.open{opacity:1;visibility:visible}.lightbox img{max-width:min(1050px,88vw);max-height:78vh;box-shadow:0 30px 100px #000;transform:scale(.92);transition:.65s var(--ease)}.lightbox.open img{transform:scale(1)}.lightbox button{position:absolute;top:24px;right:30px;background:none;border:0;color:white;font-size:2.6rem;cursor:pointer}.lightbox p{position:absolute;bottom:28px;color:#b9afb9}
+@keyframes letterIn{to{opacity:1;transform:none}}@keyframes loading{from{width:0}to{width:100%}}@keyframes sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}@keyframes float{50%{transform:translate(7%,-5%) rotate(25deg)}}@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}@keyframes soundbar{to{height:3px}}@keyframes shoot{from{transform:translate(0,0) rotate(-28deg);opacity:1}to{transform:translate(-55vw,34vh) rotate(-28deg);opacity:0}}
+@media(max-width:800px){.topbar{padding:18px}.scene{padding:100px 22px}.section-index{top:90px;right:22px;font-size:2.8rem}.hero h1 span{font-size:clamp(3.4rem,18vw,6rem)}.timeline-card{grid-template-columns:1fr;gap:12px;padding:32px 0}.gallery-head{display:block}.gallery-grid{display:block;margin-top:50px}.gallery-item,.gallery-item:nth-child(2),.gallery-item.wide,.gallery-item:nth-child(4){margin:0 0 22px;grid-column:auto}.gallery-item img,.gallery-item.tall img,.gallery-item.wide img{height:430px}.notebook{min-height:680px}.book-pages{padding:45px 24px}.letter-copy{font-size:.92rem}.ending footer{left:22px;right:22px}.menu-panel a{font-size:2.4rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none;filter:none}}
 
   </style>
-  <link rel="preload" as="image" href="memory-1.png">
-  <link rel="preload" as="image" href="memory-2.png">
-  <link rel="preload" as="image" href="memory-3.png">
 </head>
 <body>
-
-  <div class="audio-entry" id="audioEntry" role="dialog" aria-modal="true" aria-labelledby="audioEntryTitle">
-    <div class="audio-entry-card">
-      <span class="audio-entry-heart">🤍</span>
-      <h2 id="audioEntryTitle">มีบางอย่างอยากให้หนูดู</h2>
-      <p>แตะหนึ่งครั้งเพื่อเข้าสู่เว็บไซต์พร้อมเปิดเพลงนะคะ</p>
-      <button type="button" class="audio-entry-button" id="audioEntryButton">
-        เปิดเว็บไซต์พร้อมเพลง
-      </button>
+  <div id="loader" class="loader" aria-label="กำลังโหลดเรื่องราว">
+    <div class="loader-noise"></div>
+    <div class="loader-content">
+      <div class="loader-mark" aria-hidden="true">
+        <span>S</span><span>O</span><span>R</span><span>R</span><span>Y</span>
+      </div>
+      <div class="loader-line"><span></span></div>
+      <p>เรื่องราวของพี่และหนู</p>
     </div>
   </div>
 
-  <div class="stars" id="stars"></div>
-  <div class="hearts" id="hearts"></div>
+  <canvas id="ambientCanvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="cursorGlow" aria-hidden="true"></div>
 
-  <div class="music-panel" aria-label="ตัวควบคุมเพลง">
-    <button type="button" id="muteBtn" aria-label="ปิดหรือเปิดเสียง">🔊</button>
-    <button type="button" id="volumeDownBtn" aria-label="ลดเสียง">−</button>
-    <span class="volume-level" id="volumeLevel" aria-live="polite">60%</span>
-    <button type="button" id="volumeUpBtn" aria-label="เพิ่มเสียง">+</button>
-    <button type="button" class="play-button" id="musicBtn">♫ เปิดเพลง</button>
-  </div>
-  <div class="ios-volume-note" id="iosVolumeNote">
-    บน iPhone หากระดับเสียงไม่เปลี่ยน กรุณาใช้ปุ่มเพิ่ม–ลดเสียงด้านข้างเครื่อง
-  </div>
-
-  <audio id="music" loop autoplay preload="auto" playsinline webkit-playsinline>
-    <source src="sry1.mp3" type="audio/mpeg">
-    เบราว์เซอร์นี้ไม่รองรับการเล่นเสียง
-  </audio>
-
-  <header class="hero">
-    <div class="hero-card">
-      <div class="mini">เว็บไซต์นี้สร้างมาเพื่อหนูคนเดียว</div>
-      <h1>ขอโทษนะ 🤍</h1>
-      <p class="subtitle">
-        พี่อาจพูดไม่เก่ง และบางครั้งก็ทำอะไรไม่คิด
-        แต่ครั้งนี้ พี่อยากใช้สิ่งที่ พี่ทำเป็น มาบอกว่า พี่แคร์หนูมากแค่ไหน
-      </p>
-      <a class="btn btn-primary" href="#story">กดตรงนี้นะ</a>
+  <header class="topbar">
+    <a href="#hero" class="brand">P × N</a>
+    <div class="top-actions">
+      <button id="soundToggle" class="icon-btn" type="button" aria-label="เปิดหรือปิดเสียง">
+        <span class="sound-bars"><i></i><i></i><i></i></span>
+      </button>
+      <button id="menuToggle" class="menu-btn" type="button" aria-label="เปิดเมนู"><span></span><span></span></button>
     </div>
   </header>
 
+  <nav id="menuPanel" class="menu-panel" aria-hidden="true">
+    <a href="#story">เรื่องของเรา</a>
+    <a href="#gallery">ความทรงจำ</a>
+    <a href="#letter">จดหมาย</a>
+    <a href="#ending">คำสุดท้าย</a>
+  </nav>
+
   <main>
-    <section id="story">
-      <h2 class="section-title">สิ่งที่ พี่อยากบอก</h2>
-      <p class="section-note">บางคำอาจดูธรรมดา แต่ทุกคำในนี้ตั้งใจเขียนถึงหนูจริง ๆ</p>
+    <section id="hero" class="scene hero" data-volume="0.38">
+      <div class="hero-aurora"></div>
+      <div class="hero-content reveal-group">
+        <p class="eyebrow reveal">A SMALL WEBSITE, A BIG FEELING</p>
+        <h1 class="reveal">
+          <span>ถึงลมหนาว</span>
+          <em>คนสำคัญของพี่</em>
+        </h1>
+        <p class="hero-copy reveal">พี่อาจไม่ได้เก่งเรื่องพูดทุกครั้ง<br>เลยเขียนความรู้สึกทั้งหมดไว้ตรงนี้แทน</p>
+        <button id="startStory" class="primary-btn reveal" type="button">
+          <span>เปิดเรื่องราวของเรา</span><b>↘</b>
+        </button>
+      </div>
+      <div class="scroll-cue"><span></span><small>SCROLL</small></div>
+    </section>
+
+    <section id="story" class="scene story" data-volume="0.23">
+      <div class="section-index">01</div>
+      <div class="section-heading reveal-group">
+        <p class="eyebrow reveal">OUR TIMELINE</p>
+        <h2 class="reveal">บางความสัมพันธ์<br><em>ไม่ต้องสมบูรณ์แบบ</em></h2>
+      </div>
 
       <div class="timeline">
-        <div class="moment">
-          <strong>พี่รู้ว่าหนูกำลังรู้สึกไม่ดี</strong>
-          และพี่ไม่อยากทำเหมือนว่าความรู้สึกของหนูเป็นเรื่องเล็ก
-        </div>
-        <div class="moment">
-          <strong>พี่ยอมรับว่าพี่ทำพลาด</strong>
-          พี่ขอโทษที่ทำให้หนูเสียใจ ผิดหวัง หรือรู้สึกว่าพี่ไม่ใส่ใจ
-        </div>
-        <div class="moment">
-          <strong>พี่ไม่ได้อยากชนะการทะเลาะครั้งนี้</strong>
-          พี่แค่อยากรักษาหนู และทำให้เรากลับมาคุยกันด้วยความเข้าใจ
-        </div>
-        <div class="moment">
-          <strong>พี่พร้อมแก้ไขด้วยการกระทำ</strong>
-          ไม่ใช่แค่พูดว่าขอโทษ แล้วปล่อยให้เรื่องเดิมเกิดขึ้นอีก
-        </div>
+        <article class="timeline-card reveal">
+          <span>ครั้งแรก</span>
+          <h3>วันที่พี่เริ่มจำชื่อหนูได้มากกว่าคนอื่น</h3>
+          <p>จากบทสนทนาธรรมดา กลายเป็นข้อความที่พี่เฝ้ารอโดยไม่รู้ตัว</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span>ระหว่างทาง</span>
+          <h3>เราเรียนรู้กันทั้งวันที่ง่ายและวันที่ยาก</h3>
+          <p>มีทั้งเสียงหัวเราะ ความเข้าใจผิด และการกลับมาจับมือกันใหม่</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span>วันนี้</span>
+          <h3>พี่ยังเลือกหนูเหมือนเดิม</h3>
+          <p>ไม่ใช่เพราะทุกอย่างง่าย แต่เพราะหนูมีความหมายมากพอให้พี่อยากดูแลมัน</p>
+        </article>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">ความทรงจำของเรา</h2>
-      <p class="section-note">ภาพความทรงจำทั้งสามภาพที่พี่ตั้งใจเลือกมาเพื่อหนู</p>
-      <div class="gallery">
-        <div class="photo p1"><span>ทุกครั้งที่ได้อยู่ข้างหนู วันธรรมดาก็ดูพิเศษขึ้นมา</span></div>
-        <div class="photo p2"><span>พี่ชอบรอยยิ้มของหนู และไม่อยากเป็นสาเหตุที่ทำให้มันหายไป</span></div>
-        <div class="photo p3"><span>พี่ยังอยากมีรูปใหม่ ๆ และเรื่องดี ๆ กับหนูอีกเยอะเลย</span></div>
+    <section class="scene quote-scene" data-volume="0.12">
+      <div class="quote-wrap reveal">
+        <span>“</span>
+        <blockquote>ในวันที่โลกเสียงดัง<br>หนูยังเป็นความสบายใจที่พี่อยากกลับไปหา</blockquote>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">มีจดหมายถึงหนู</h2>
-      <p class="section-note">ลองกดที่ซองจดหมายดูนะ</p>
-
-      <div class="letter-wrap">
+    <section id="gallery" class="scene gallery-section" data-volume="0.3">
+      <div class="section-index">02</div>
+      <div class="gallery-head reveal-group">
         <div>
-          <div
-            class="envelope"
-            id="envelope"
-            role="button"
-            tabindex="0"
-            aria-label="เปิดจดหมายถึงหนู"
-            aria-haspopup="dialog"
-          >
-            <div class="envelope-base"></div>
-            <div class="envelope-preview">กดเพื่อเปิดจดหมายถึงหนู 🤍</div>
-            <div class="flap"></div>
-          </div>
-          <div class="tap-note">แตะที่ซองเพื่อเปิดอ่านข้อความ</div>
+          <p class="eyebrow reveal">MEMORY ARCHIVE</p>
+          <h2 class="reveal">ช่วงเวลาของ<br><em>พี่กับหนู</em></h2>
         </div>
+        <p class="gallery-note reveal">เลื่อนผ่านแต่ละภาพช้า ๆ<br>เพราะบางความทรงจำควรถูกมองนานหน่อย</p>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item tall reveal" data-parallax="0.09">
+          <img src="memory-1 (1).png" alt="ภาพแทนความทรงจำที่หนึ่ง" />
+          <figcaption><span>01</span> วันที่ธรรมดาที่มีความหมาย</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" data-parallax="0.14">
+          <img src="memory-2 (2).png" alt="ภาพแทนความทรงจำที่สอง" />
+          <figcaption><span>02</span> รอยยิ้มของหนู</figcaption>
+        </figure>
+        <figure class="gallery-item wide reveal" data-parallax="0.07">
+          <img src="memory-3 (3).png" alt="ภาพแทนความทรงจำที่สาม" />
+          <figcaption><span>03</span> คืนที่เราเล่าเรื่องกันจนดึก</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" data-parallax="0.12">
+          <img src="memory-4 (4).png" alt="ภาพแทนความทรงจำที่สี่" />
+          <figcaption><span>04</span> สถานที่ที่อยากกลับไปด้วยกัน</figcaption>
+        </figure>
+      </div>
+      <p class="replace-hint reveal">เปลี่ยนภาพได้ง่าย ๆ ในโฟลเดอร์ <code>assets/images</code></p>
+    </section>
+
+    <section id="letter" class="scene letter-section" data-volume="0.16">
+      <div class="section-index">03</div>
+      <div class="letter-intro reveal-group">
+        <p class="eyebrow reveal">A LETTER FOR YOU</p>
+        <h2 class="reveal">มีบางคำ<br><em>ที่พี่อยากให้หนูอ่าน</em></h2>
+      </div>
+
+      <div class="notebook-shell reveal">
+        <div class="notebook-shadow"></div>
+        <div id="notebook" class="notebook" tabindex="0">
+          <div class="book-cover">
+            <span>PRIVATE NOTES</span>
+            <h3>ถึงลมหนาว</h3>
+            <p>จากพี่</p>
+            <button id="openBook" type="button">เปิดอ่าน</button>
+          </div>
+          <div class="book-pages">
+            <div class="paper-lines"></div>
+            <div class="letter-copy">
+              <p class="date">29 กรกฎาคม 2026</p>
+              <p>ถึงหนู,</p>
+              <p>พี่ทำเว็บนี้ขึ้นมา เพราะบางทีข้อความสั้น ๆ ในแชตอาจเก็บความรู้สึกของพี่ไว้ได้ไม่หมด</p>
+              <p>ขอบคุณที่เข้ามาเป็นทั้งรอยยิ้ม ความสบายใจ และคนที่ทำให้วันธรรมดาของพี่พิเศษขึ้นมาได้</p>
+              <p>พี่รู้ว่าเราสองคนอาจมีวันที่เข้าใจกันไม่หมด มีวันที่อารมณ์พาเราไปไกลกว่าความตั้งใจ แต่พี่อยากให้หนูรู้ว่า ทุกครั้งที่มีปัญหา พี่ไม่ได้อยากชนะหนู พี่แค่อยากรักษาเราไว้</p>
+              <p>พี่จะพยายามฟังให้มากขึ้น ใจเย็นขึ้น และดูแลความรู้สึกของหนูให้ดีกว่าเดิม ไม่ใช่เพราะพี่ถูกบังคับให้เปลี่ยน แต่เพราะหนูสำคัญกับพี่จริง ๆ</p>
+              <p>ขอบคุณที่ยังอยู่ตรงนี้นะลมหนาว</p>
+              <p class="signature">รักหนูเสมอ<br><strong>— พี่ทอย</strong></p>
+            </div>
+          </div>
+        </div>
+        <p class="book-tip">คลิกที่หน้าปกเพื่อเปิดสมุด</p>
       </div>
     </section>
 
-    <section>
-      <div class="question-card">
-        <h3>ขอโอกาสให้อีกครั้งได้มั้ยคะ?</h3>
-        <p>ไม่ว่าหนูจะตอบแบบไหน พี่จะเคารพการตัดสินใจของหนู</p>
-        <div class="choices">
-          <button class="btn btn-primary" onclick="chooseYes()">🤍 ได้ ลองคุยกัน</button>
-          <button class="btn btn-soft" onclick="chooseNotYet()">ยังไม่พร้อม แต่ก็ไม่ได้ไปไหนนะ</button>
-        </div>
-        <div id="answer"></div>
+    <section id="ending" class="scene ending" data-volume="0.08">
+      <div id="shootingStars" class="shooting-stars" aria-hidden="true"></div>
+      <div class="ending-content reveal-group">
+        <p class="eyebrow reveal">ONE LAST THING</p>
+        <h2 class="reveal">ไม่ว่าเรื่องราวของเราจะมี<br>กี่บทที่ยาก</h2>
+        <p class="ending-line reveal">พี่ก็ยังอยากเขียนบทต่อไปกับหนู</p>
+        <div class="final-name reveal">ลมหนาว ♡</div>
       </div>
+      <footer>
+        <span>MADE WITH FEELING</span>
+        <span>FOR LOMNAO</span>
+      </footer>
     </section>
   </main>
 
-
-  <div
-    class="letter-modal"
-    id="letterModal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="letterModalTitle"
-    aria-hidden="true"
-  >
-    <div class="letter-dialog">
-      <button class="letter-close" id="letterClose" type="button" aria-label="ปิดจดหมาย">×</button>
-      <div class="letter-scroll">
-        <h3 id="letterModalTitle">ถึงลมหนาวที่น่ารักที่สุดของพี่ 🤍</h3>
-
-        พี่เสียใจกับสิ่งที่เกิดขึ้นจริง ๆ และเข้าใจว่าหนูอาจยังไม่พร้อมหายงอนทันที
-        ไม่ได้ทำเว็บนี้เพื่อบังคับให้หนูให้อภัย แต่ทำเพราะอยากให้หนูรู้ว่า
-        หนูสำคัญกับพี่มากกกก พอที่พี่จะตั้งใจทำบางสิ่งขึ้นมาเพื่อบอกความรู้สึกของพี่
-        <br><br>
-
-        พี่สัญญาว่าจะไม่มีเรื่องแบบนี้เกิดขึ้นอีก จะใส่ใจหนู และเข้าใจหนูให้มากขึ้น
-        และไม่ปล่อยให้หนูคิดว่าพี่ละเลยความรู้สึกของหนู
-        <br><br>
-
-        ขอโทษนะคะ 🤍
-      </div>
-    </div>
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="closeLightbox" type="button" aria-label="ปิดภาพ">×</button>
+    <img id="lightboxImage" alt="ภาพความทรงจำขนาดใหญ่" />
+    <p id="lightboxCaption"></p>
   </div>
 
-  <footer>Made with care, code, and a sincere apology.</footer>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="background.mp3.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="softClick" preload="auto">
+    <source src="assets/audio/soft-click.mp3" type="audio/mpeg" />
+  </audio>
 
   <script>
-    const stars = document.getElementById("stars");
-    for (let i = 0; i < 85; i++) {
-      const s = document.createElement("span");
-      s.className = "star";
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 100 + "%";
-      s.style.animationDelay = Math.random() * 2.5 + "s";
-      stars.appendChild(s);
-    }
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const loader=$('#loader'), music=$('#bgMusic'), clickSound=$('#softClick'), soundToggle=$('#soundToggle');
+let soundEnabled=false, audioUnlocked=false, targetVolume=.28;
 
-    const moments = document.querySelectorAll(".moment");
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add("show");
-        });
-      }, { threshold: .18 });
-      moments.forEach(item => observer.observe(item));
-    } else {
-      moments.forEach(item => item.classList.add("show"));
-    }
+window.addEventListener('load',()=>{setTimeout(()=>{loader.classList.add('hide');document.body.classList.remove('locked');animateVisible();},2850)});
+document.body.classList.add('locked');
 
-    const envelope = document.getElementById("envelope");
-    const letterModal = document.getElementById("letterModal");
-    const letterClose = document.getElementById("letterClose");
+function playClick(){if(!soundEnabled)return;try{clickSound.currentTime=0;clickSound.volume=.16;clickSound.play().catch(()=>{});}catch(e){}}
+async function unlockAudio(){if(audioUnlocked)return;audioUnlocked=true;try{music.volume=0;await music.play();soundEnabled=true;soundToggle.classList.add('sound-on');fadeAudio(targetVolume,1800);}catch(e){soundEnabled=false;}}
+function fadeAudio(to,duration=900){const from=music.volume,start=performance.now();cancelAnimationFrame(fadeAudio.raf);const tick=now=>{const p=Math.min(1,(now-start)/duration),e=1-Math.pow(1-p,3);music.volume=Math.max(0,Math.min(1,from+(to-from)*e));if(p<1)fadeAudio.raf=requestAnimationFrame(tick)};fadeAudio.raf=requestAnimationFrame(tick)}
+soundToggle.addEventListener('click',async()=>{if(!audioUnlocked){await unlockAudio();return}soundEnabled=!soundEnabled;soundToggle.classList.toggle('sound-on',soundEnabled);if(soundEnabled){music.play().catch(()=>{});fadeAudio(targetVolume,700)}else fadeAudio(0,500)});
+$('#startStory').addEventListener('click',async()=>{await unlockAudio();playClick();$('#story').scrollIntoView({behavior:'smooth'})});
 
-    function openLetter() {
-      letterModal.classList.add("open");
-      letterModal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      window.setTimeout(() => letterClose.focus(), 50);
-    }
+document.addEventListener('click',e=>{if(e.target.closest('button,a,.gallery-item'))playClick()});
 
-    function closeLetter() {
-      letterModal.classList.remove("open");
-      letterModal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      envelope.focus();
-    }
+const menu=$('#menuPanel');$('#menuToggle').addEventListener('click',()=>{const open=menu.classList.toggle('open');menu.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('locked',open)});$$('#menuPanel a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');document.body.classList.remove('locked')}));
 
-    envelope.addEventListener("click", openLetter);
-    envelope.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openLetter();
-      }
-    });
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.14});$$('.reveal').forEach(el=>revealObserver.observe(el));function animateVisible(){$$('.hero .reveal').forEach(el=>el.classList.add('visible'))}
 
-    letterClose.addEventListener("click", closeLetter);
+const volumeObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){targetVolume=parseFloat(entry.target.dataset.volume||.25);if(soundEnabled)fadeAudio(targetVolume,1400)}})},{threshold:.58});$$('.scene').forEach(s=>volumeObserver.observe(s));
 
-    letterModal.addEventListener("click", (event) => {
-      if (event.target === letterModal) closeLetter();
-    });
+const notebook=$('#notebook');$('#openBook').addEventListener('click',()=>notebook.classList.add('open'));notebook.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')notebook.classList.toggle('open')});
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && letterModal.classList.contains("open")) {
-        closeLetter();
-      }
-    });
+const lightbox=$('#lightbox'), lbImg=$('#lightboxImage'), lbCap=$('#lightboxCaption');$$('.gallery-item').forEach(item=>item.addEventListener('click',()=>{lbImg.src=$('img',item).src;lbCap.textContent=$('figcaption',item).innerText;lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false');document.body.classList.add('locked')}));function closeLB(){lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');document.body.classList.remove('locked')}$('#closeLightbox').addEventListener('click',closeLB);lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLB()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
 
-    const music = document.getElementById("music");
-    const musicBtn = document.getElementById("musicBtn");
-    const muteBtn = document.getElementById("muteBtn");
-    const volumeDownBtn = document.getElementById("volumeDownBtn");
-    const volumeUpBtn = document.getElementById("volumeUpBtn");
-    const volumeLevel = document.getElementById("volumeLevel");
-    const iosVolumeNote = document.getElementById("iosVolumeNote");
+let ticking=false;window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{$$('[data-parallax]').forEach(el=>{const r=el.getBoundingClientRect(),rate=parseFloat(el.dataset.parallax);if(r.bottom>0&&r.top<innerHeight)$('img',el).style.transform=`translateY(${(r.top-innerHeight/2)*rate}px) scale(1.08)`});ticking=false})},{passive:true});
 
-    const audioEntry = document.getElementById("audioEntry");
-    const audioEntryButton = document.getElementById("audioEntryButton");
+const glow=$('#cursorGlow');window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
 
-    async function attemptImmediatePlayback() {
-      try {
-        music.muted = false;
-        await music.play();
-        musicBtn.textContent = "❚❚ หยุดเพลง";
-        audioEntry.classList.remove("show");
-        document.body.style.overflow = "";
-      } catch (error) {
-        audioEntry.classList.add("show");
-        document.body.style.overflow = "hidden";
-      }
-    }
+const canvas=$('#ambientCanvas'),ctx=canvas.getContext('2d');let particles=[];function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);particles=Array.from({length:Math.min(90,Math.floor(innerWidth/14))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.2+.2,v:Math.random()*.18+.04,a:Math.random()*.45+.08}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of particles){p.y-=p.v;if(p.y<0){p.y=innerHeight;p.x=Math.random()*innerWidth}ctx.beginPath();ctx.fillStyle=`rgba(255,230,242,${p.a})`;ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()}requestAnimationFrame(draw)}window.addEventListener('resize',resize);resize();draw();
 
-    audioEntryButton.addEventListener("click", async () => {
-      try {
-        music.muted = false;
-        await music.play();
-        musicBtn.textContent = "❚❚ หยุดเพลง";
-        audioEntry.classList.remove("show");
-        document.body.style.overflow = "";
-      } catch (error) {
-        audioEntryButton.textContent = "แตะอีกครั้งเพื่อเปิดเพลง";
-      }
-    });
+const starWrap=$('#shootingStars');function star(){const s=document.createElement('i');s.className='shooting-star';s.style.left=(65+Math.random()*40)+'%';s.style.top=(Math.random()*42)+'%';starWrap.appendChild(s);setTimeout(()=>s.remove(),1400)}setInterval(()=>{const r=$('#ending').getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)star()},1600);
 
-    window.addEventListener("pageshow", attemptImmediatePlayback, { once: true });
-
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-
-    let desiredVolume = 0.6;
-    let previousVolume = desiredVolume;
-
-    function updateVolumeUI() {
-      const shownVolume = music.muted ? 0 : desiredVolume;
-      volumeLevel.textContent = Math.round(shownVolume * 100) + "%";
-      muteBtn.textContent = music.muted || shownVolume === 0 ? "🔇" : "🔊";
-      muteBtn.setAttribute("aria-label", music.muted ? "เปิดเสียง" : "ปิดเสียง");
-    }
-
-    function applyVolume(nextVolume) {
-      desiredVolume = Math.max(0, Math.min(1, Number(nextVolume.toFixed(1))));
-      if (desiredVolume > 0) previousVolume = desiredVolume;
-      music.muted = desiredVolume === 0;
-
-      // Desktop/Android usually honor this. iOS Safari may keep volume under
-      // hardware control, so the interface also displays an iPhone fallback.
-      try { music.volume = desiredVolume; } catch (error) {}
-
-      updateVolumeUI();
-
-      if (isIOS) {
-        iosVolumeNote.classList.add("show");
-        window.clearTimeout(window.iosNoteTimer);
-        window.iosNoteTimer = window.setTimeout(() => {
-          iosVolumeNote.classList.remove("show");
-        }, 4200);
-      }
-    }
-
-    applyVolume(desiredVolume);
-
-    musicBtn.addEventListener("click", async () => {
-      if (music.paused) {
-        try {
-          // This call happens directly inside a user gesture, as required by iOS Safari.
-          await music.play();
-          musicBtn.textContent = "❚❚ หยุดเพลง";
-        } catch (error) {
-          musicBtn.textContent = "แตะเพื่อเปิดเพลง";
-          iosVolumeNote.textContent =
-            "Safari ยังไม่อนุญาตให้เล่นเพลง กรุณาแตะปุ่มอีกครั้ง และตรวจว่าไฟล์ sry1.mp3 อยู่โฟลเดอร์เดียวกับเว็บ";
-          iosVolumeNote.classList.add("show");
-        }
-      } else {
-        music.pause();
-        musicBtn.textContent = "♫ เปิดเพลง";
-      }
-    });
-
-    volumeDownBtn.addEventListener("click", () => {
-      music.muted = false;
-      applyVolume(desiredVolume - 0.1);
-    });
-
-    volumeUpBtn.addEventListener("click", () => {
-      music.muted = false;
-      applyVolume(desiredVolume + 0.1);
-    });
-
-    muteBtn.addEventListener("click", () => {
-      if (music.muted || desiredVolume === 0) {
-        desiredVolume = previousVolume || 0.6;
-        music.muted = false;
-        try { music.volume = desiredVolume; } catch (error) {}
-      } else {
-        previousVolume = desiredVolume;
-        music.muted = true;
-      }
-      updateVolumeUI();
-    });
-
-    music.addEventListener("play", () => {
-      musicBtn.textContent = "❚❚ หยุดเพลง";
-    });
-
-    music.addEventListener("pause", () => {
-      musicBtn.textContent = "♫ เปิดเพลง";
-    });
-
-    music.addEventListener("error", () => {
-      musicBtn.textContent = "ไม่พบไฟล์เพลง";
-      iosVolumeNote.textContent =
-        "ไม่พบ sry1.mp3 กรุณาวางไฟล์เพลงไว้ในโฟลเดอร์เดียวกับ index.html";
-      iosVolumeNote.classList.add("show");
-    });
-
-    function spawnHearts(amount = 24) {
-      const box = document.getElementById("hearts");
-      for (let i = 0; i < amount; i++) {
-        const h = document.createElement("span");
-        h.className = "heart";
-        h.textContent = Math.random() > .35 ? "♥" : "♡";
-        h.style.left = Math.random() * 100 + "%";
-        h.style.fontSize = (16 + Math.random() * 26) + "px";
-        h.style.animationDuration = (3.2 + Math.random() * 3) + "s";
-        h.style.animationDelay = (Math.random() * .8) + "s";
-        box.appendChild(h);
-        setTimeout(() => h.remove(), 7000);
-      }
-    }
-
-    function chooseYes() {
-      document.getElementById("answer").innerHTML =
-        "ขอบคุณนะ 🤍<br>พี่จะตั้งใจฟัง และจะทำให้การคุยครั้งนี้เป็นพื้นที่ที่ปลอดภัยสำหรับเราสองคน";
-      spawnHearts(42);
-    }
-
-    function chooseNotYet() {
-      document.getElementById("answer").innerHTML =
-        "ไม่เป็นไรนะ พี่เข้าใจว่าหนูอาจต้องการเวลา<br>พี่จะไม่เร่งหนู และจะรอจนกว่าหนูจะพร้อม";
-    }
   </script>
 </body>
 </html>
